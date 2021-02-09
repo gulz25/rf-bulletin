@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  mariadb:
+    image: 'bitnami/mariadb:latest'
+    environment:
+      - MARIADB_USER=bn_osclass
+      - MARIADB_DATABASE=bitnami_osclass
+      - ALLOW_EMPTY_PASSWORD=no
+    volumes:
+      - mariadb_data:/bitnami
+  osclass:
+    image: bitnami/osclass:latest
+    environment:
+      - MARIADB_HOST=mariadb
+      - MARIADB_PORT_NUMBER=3306
+      - OSCLASS_HOST=34.85.48.165
+      - OSCLASS_USERNAME=admin
+      - OSCLASS_PASSWORD=bitnami1
+      - OSCLASS_WEB_TITLE="社会人ダンスサークルR&F コミュニティ掲示板"
+      - OSCLASS_DATABASE_USER=bn_osclass
+      - OSCLASS_DATABASE_NAME=bitnami_osclass
+      - ALLOW_EMPTY_PASSWORD=no
+    depends_on:
+      - mariadb
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - osclass_data:/bitnami
+volumes:
+  mariadb_data:
+    driver: local
+  osclass_data:
+    driver: local
