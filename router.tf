@@ -1,7 +1,7 @@
 resource "google_compute_router" "rf-cloud-router" {
-  name    = "rf-cloud-router"
+  name    = "${var.prefix}cloud-router"
   region  = "asia-northeast1"
-  network = "rf-vpc"
+  network = "${var.prefix}vpc"
   timeouts {}
   depends_on = [
     google_compute_subnetwork.rf-subnet-public,
@@ -9,13 +9,13 @@ resource "google_compute_router" "rf-cloud-router" {
   ]
 }
 resource "google_compute_router_nat" "rf-cloud-router-nat" {
-  name                               = "rf-cloud-nat"
-  router                             = "rf-cloud-router"
+  name                               = "${var.prefix}cloud-nat"
+  router                             = "${var.prefix}cloud-router"
   region                             = "asia-northeast1"
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
   subnetwork {
-    name = "rf-subnet-private"
+    name = "${var.prefix}subnet-private"
     source_ip_ranges_to_nat = ["ALL_IP_RANGES"]
   }
   timeouts {}

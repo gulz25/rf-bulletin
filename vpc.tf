@@ -3,8 +3,8 @@ resource "google_compute_network" "rf-vpc" {
     auto_create_subnetworks         = false
     delete_default_routes_on_create = false
     description                     = "for private rf bulletin project"
-    name                            = "rf-vpc"
-    project                         = "rf-bulletin"
+    name                            = "${var.prefix}vpc"
+    project                         = var.project
     routing_mode                    = "REGIONAL"
 
     timeouts {}

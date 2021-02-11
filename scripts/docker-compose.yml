@@ -1,35 +1,27 @@
-version: '2'
+version: '3'
 
 services:
-  mariadb:
-    image: 'bitnami/mariadb:latest'
-    environment:
-      - MARIADB_USER=bn_osclass
-      - MARIADB_DATABASE=bitnami_osclass
-      - ALLOW_EMPTY_PASSWORD=no
-    volumes:
-      - mariadb_data:/bitnami
-  osclass:
-    image: bitnami/osclass:latest
-    environment:
-      - MARIADB_HOST=mariadb
-      - MARIADB_PORT_NUMBER=3306
-      - OSCLASS_HOST=34.85.48.165
-      - OSCLASS_USERNAME=admin
-      - OSCLASS_PASSWORD=bitnami1
-      - OSCLASS_WEB_TITLE="社会人ダンスサークルR&F コミュニティ掲示板"
-      - OSCLASS_DATABASE_USER=bn_osclass
-      - OSCLASS_DATABASE_NAME=bitnami_osclass
-      - ALLOW_EMPTY_PASSWORD=no
-    depends_on:
-      - mariadb
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - osclass_data:/bitnami
+   db:
+     image: mysql:5.7
+     volumes:
+       - db_data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: somewordpress
+       MYSQL_DATABASE: wordpress
+       MYSQL_USER: wordpress
+       MYSQL_PASSWORD: wordpress
+
+   wordpress:
+     depends_on:
+       - db
+     image: wordpress:latest
+     ports:
+       - "8000:80"
+     restart: always
+     environment:
+       WORDPRESS_DB_HOST: db:3306
+       WORDPRESS_DB_USER: wordpress
+       WORDPRESS_DB_PASSWORD: wordpress
 volumes:
-  mariadb_data:
-    driver: local
-  osclass_data:
-    driver: local
+    db_data:

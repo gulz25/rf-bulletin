@@ -16,10 +16,11 @@
 
 ## description
 
-- osclass software deployed on GCE instance on GCP.
-- URL
-  - for users: http://34.85.48.165/
-  - for admin: http://34.85.48.165/oc-admin/
+- wordpress software deployed on GCE instance on GCP.
+- wordpress
+  - URL
+    - for users: http://34.84.39.221/
+    - for admin: http://34.84.39.221/oc-admin/
 ## preparation
 
 - authenticate and login to the google account
@@ -59,24 +60,6 @@ export GOOGLE_CLOUD_KEYFILE_JSON=<path-to-terraform-project>/credential/account.
 
 ```bash
 gcloud compute ssh rf-jumphost
-```
-
-- creates static IP address
-
-```bash
-gcloud compute addresses create rf-bulletin --region asia-northeast1 --network-tier PREMIUM
-```
-
-- attach static IP address to the existing VM instances
-
-```bash
-gcloud compute instances add-access-config rf-bulletin --address <static IP>
-```
-
-- detach static IP address from the existing VM instances
-
-```bash
-gcloud compute instances delete-access-config rf-bulletin --access-config-name "external-nat"
 ```
 
 ## reference

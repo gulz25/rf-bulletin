@@ -1,6 +1,6 @@
 resource "google_compute_firewall" "allow-ssh-wfh" {
   name    = "allow-ssh-wfh"
-  network = "rf-vpc"
+  network = "${var.prefix}vpc"
   description = "allows ssh connections from home"
   source_ranges = ["115.179.53.70/32"]
   allow {
@@ -14,12 +14,12 @@ resource "google_compute_firewall" "allow-ssh-wfh" {
 }
 resource "google_compute_firewall" "allow-http-https" {
   name    = "allow-http-https"
-  network = "rf-vpc"
+  network = "${var.prefix}vpc"
   description = "allows http/https access from home"
   source_ranges = ["115.179.53.70/32"]
   allow {
     protocol = "tcp"
-    ports    = ["80","443"]
+    ports    = ["80","443","8000"]
   }
   target_tags = ["private"]
   depends_on = [
@@ -28,7 +28,7 @@ resource "google_compute_firewall" "allow-http-https" {
 }
 resource "google_compute_firewall" "allow-rfbulletin-internal" {
   name    = "allow-rfbulletin-internal"
-  network = "rf-vpc"
+  network = "${var.prefix}vpc"
   description = "allows internal connections within private subnet"
   source_ranges = ["192.168.10.0/24","192.168.11.0/24"]
   allow {
