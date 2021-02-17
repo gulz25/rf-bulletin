@@ -9,6 +9,9 @@ variable "project" {
   default = "rf-bulletin"
 }
 // Resources
+variable "domain" {
+  default = "rfcommunity.page"
+}
 variable "prefix" {
   default = "rf-"
 }
@@ -19,7 +22,7 @@ variable "machine_type_bastion" {
   default = "f1-micro"
 }
 variable "machine_type_web" {
-  default = "f1-micro"
+  default = "e2-small"
 }
 variable "internal_ip_1" {
   default = "192.168.11.2"
