@@ -16,10 +16,11 @@ resource "google_compute_firewall" "allow-http-https" {
   name    = "allow-http-https"
   network = "${var.prefix}vpc"
   description = "allows http/https access from home"
-  source_ranges = ["115.179.53.70/32"]
+//  source_ranges = ["115.179.53.70/32"]
+  source_ranges = ["0.0.0.0/0"]
   allow {
     protocol = "tcp"
-    ports    = ["80","443","8000"]
+    ports    = ["80","443","8000","8080"]
   }
   target_tags = ["private"]
   depends_on = [
@@ -32,15 +33,7 @@ resource "google_compute_firewall" "allow-rfbulletin-internal" {
   description = "allows internal connections within private subnet"
   source_ranges = ["192.168.10.0/24","192.168.11.0/24"]
   allow {
-    protocol = "tcp"
-    ports    = ["0-65535"]
-  }
-  allow {
-    protocol = "udp"
-    ports    = ["0-65535"]
-  }
-  allow {
-    protocol = "icmp"
+    protocol = "all"
   }
   target_tags = ["public","private"]
   depends_on = [
