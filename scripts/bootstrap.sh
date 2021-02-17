@@ -7,9 +7,11 @@ source /etc/locale.conf
 if [ $(uname -n) = "rf-jumphost" ]; then
     echo "this is jumphost" > introduction.md
 elif [ $(uname -n) = "rf-web" ]; then
-    yum -y install traceroute git docker docker-compose composer
+    yum -y install docker docker-compose
     systemctl start docker
     systemctl enable docker
-    mkdir /mnt/osclass /mnt/mariadb_data
+    groupadd docker
+    usermod -aG docker maeseiji
     curl -sSL https://raw.githubusercontent.com/gulz25/rf-bulletin/main/scripts/docker-compose.yml > /root/docker-compose.yml
     docker-compose up -d
+fi
