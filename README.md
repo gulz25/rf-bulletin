@@ -12,15 +12,17 @@
 
 ## architecture
 
-![名称未設定ファイル](https://user-images.githubusercontent.com/29003909/107490570-657b9e00-6bcd-11eb-96e7-24d063893bc4.png)
+![architecture](https://user-images.githubusercontent.com/29003909/108156650-64de8c80-7124-11eb-80af-799fd26e744d.png)
 
 ## description
 
 - wordpress software deployed on GCE instance on GCP.
 - wordpress
   - URL
-    - for users: http://34.84.39.221/
-    - for admin: http://34.84.39.221/oc-admin/
+    - for users:  http://34.84.39.221
+                  http://rfcommunity.page
+    - for admin:  http://34.84.39.221/wp-login.php
+                  http://rfcommunity.page/wp-login.php
 ## preparation
 
 - authenticate and login to the google account
@@ -62,13 +64,21 @@ export GOOGLE_CLOUD_KEYFILE_JSON=<path-to-terraform-project>/credential/account.
 gcloud compute ssh rf-jumphost
 ```
 
+## plugins
+- bbPress
+- BuddyPress
+- GD bbPress Attachments
+- Really Simple SSL
+- SSL Zen
 ## reference
 
-- installing osclass
-https://hub.docker.com/r/bitnami/osclass/
+- installation, docker
+https://docs.docker.com/engine/install/linux-postinstall/
 
-- turning osclass into Japanese
-http://archism.jp/osclass/osclass%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/install/
+- wordpress
+https://web-kanji.com/posts/wordpress-bulletin-board
+https://41y.me/free-theme-for-buddypress/
+https://blog-bootcamp.jp/start/wordpress-bbpress/
 
-- osclass point (market)
-https://osclasspoint.com/
+- dns, custom domains
+https://ymym3412.hatenablog.com/entry/2019/12/22/170811
