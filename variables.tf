@@ -13,7 +13,7 @@ variable "domain" {
   default = "rfcommunity.page"
 }
 variable "prefix" {
-  default = "rf-"
+  default = "rf"
 }
 variable "os" {
   default = "centos-7-v20210122"

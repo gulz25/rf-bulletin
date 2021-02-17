@@ -1,6 +1,6 @@
-resource "google_compute_instance" "rf-jumphost" {
+resource "google_compute_instance" "jumphost" {
     machine_type         = var.machine_type_bastion
-    name                 = "${var.prefix}jumphost"
+    name                 = "${var.prefix}-jumphost"
     project              = var.project
     tags                 = [
         "public",
@@ -14,9 +14,9 @@ resource "google_compute_instance" "rf-jumphost" {
         }
     }
     network_interface {
-        network            = "${var.prefix}vpc"
+        network            = "${var.prefix}-vpc"
         network_ip         = "192.168.10.10"
-        subnetwork         = "${var.prefix}subnet-public"
+        subnetwork         = "${var.prefix}-subnet-public"
         subnetwork_project = var.project
         access_config {
         }
@@ -27,12 +27,12 @@ resource "google_compute_instance" "rf-jumphost" {
     }
     timeouts {}
     depends_on = [
-    google_compute_subnetwork.rf-subnet-public,
+    google_compute_subnetwork.subnet-public,
   ]
 }
-resource "google_compute_instance" "rf-web" {
+resource "google_compute_instance" "web" {
     machine_type         = var.machine_type_web
-    name                 = "${var.prefix}web"
+    name                 = "${var.prefix}-web"
     project              = var.project
     metadata_startup_script = file("./scripts/bootstrap.sh")
     tags                 = [
@@ -48,9 +48,9 @@ resource "google_compute_instance" "rf-web" {
         }
     }
     network_interface {
-        network            = "${var.prefix}vpc"
+        network            = "${var.prefix}-vpc"
         network_ip         = var.internal_ip_1
-        subnetwork         = "${var.prefix}subnet-private"
+        subnetwork         = "${var.prefix}-subnet-private"
         subnetwork_project = var.project
         access_config {
             nat_ip = google_compute_address.web1.address
@@ -62,6 +62,6 @@ resource "google_compute_instance" "rf-web" {
     }
     timeouts {}
     depends_on = [
-        google_compute_subnetwork.rf-subnet-private,
+        google_compute_subnetwork.subnet-private,
   ]
 }
