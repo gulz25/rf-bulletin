@@ -14,9 +14,9 @@ resource "google_compute_instance" "jumphost" {
         }
     }
     network_interface {
-        network            = "${var.prefix}-vpc"
-        network_ip         = "192.168.10.10"
-        subnetwork         = "${var.prefix}-subnet-public"
+        network            = google_compute_network.vpc.name
+        network_ip         = var.internal_ip_1
+        subnetwork         = google_compute_subnetwork.subnet-public.name
         subnetwork_project = var.project
         access_config {
         }
@@ -27,7 +27,7 @@ resource "google_compute_instance" "jumphost" {
     }
     timeouts {}
     depends_on = [
-    google_compute_subnetwork.subnet-public,
+        google_compute_subnetwork.subnet-public,
   ]
 }
 resource "google_compute_instance" "web" {
@@ -46,11 +46,12 @@ resource "google_compute_instance" "web" {
             size   = 100
             type   = "pd-standard"
         }
+#        source = "https://www.googleapis.com/compute/v1/projects/rf-bulletin/global/snapshots/snapshot-1"
     }
     network_interface {
-        network            = "${var.prefix}-vpc"
-        network_ip         = var.internal_ip_1
-        subnetwork         = "${var.prefix}-subnet-private"
+        network            = google_compute_network.vpc.name
+        network_ip         = var.internal_ip_2
+        subnetwork         = google_compute_subnetwork.subnet-private.name
         subnetwork_project = var.project
         access_config {
             nat_ip = google_compute_address.web1.address

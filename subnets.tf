@@ -1,8 +1,8 @@
 # google_compute_subnetwork.subnet1:
 resource "google_compute_subnetwork" "subnet-public" {
     ip_cidr_range            = "192.168.10.0/24"
-    name                     = "${var.prefix}-subnet-public"
-    network                  = "${var.prefix}-vpc"
+    name                     = "subnet-public"
+    network                  = google_compute_network.vpc.name
     private_ip_google_access = true
     project                  = var.project
     region                   = var.region
@@ -13,8 +13,8 @@ resource "google_compute_subnetwork" "subnet-public" {
 }
 resource "google_compute_subnetwork" "subnet-private" {
     ip_cidr_range            = "192.168.11.0/24"
-    name                     = "${var.prefix}-subnet-private"
-    network                  = "${var.prefix}-vpc"
+    name                     = "subnet-private"
+    network                  = google_compute_network.vpc.name
     private_ip_google_access = true
     project                  = var.project
     region                   = var.region

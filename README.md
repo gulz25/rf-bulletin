@@ -82,3 +82,4 @@ https://blog-bootcamp.jp/start/wordpress-bbpress/
 
 - dns, custom domains
 https://ymym3412.hatenablog.com/entry/2019/12/22/170811
+https://qiita.com/HeRo/items/f9eb8d8a08d4d5b63ee9
