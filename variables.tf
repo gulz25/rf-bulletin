@@ -22,7 +22,7 @@ variable "machine_type_bastion" {
   default = "f1-micro"
 }
 variable "machine_type_web" {
-  default = "e2-small"
+  default = "f1-micro"
 }
 variable "internal_ip_1" {
   default = "192.168.11.2"
